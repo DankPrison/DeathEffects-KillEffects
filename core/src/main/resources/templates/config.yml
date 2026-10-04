@@ -1,0 +1,173 @@
+# ==============================================================================================
+#  @PLUGIN@ - configuration
+# ==============================================================================================
+#
+# @DESCRIPTION@
+# The effects are in effects.yml and all messages in messages.yml.
+# After changing a file, run /@ALIAS@ reload.
+#
+# Item and sound names in this file are written for the Minecraft version of your server and are
+# translated automatically when the server moves to another version.
+
+# Used to update this file when the plugin is updated. Do not change.
+config-version: 2
+
+settings:
+  # Worlds where effects play. An empty list means every world.
+  enabled-worlds: []
+  # Worlds where effects never play.
+  disabled-worlds: []
+  # true: an effect only plays while the player still has its permission, for example until a
+  # rank expires. false: a selected effect keeps playing.
+  require-permission: true
+  # Effect for players who have not selected one, for example 'flame'. '' means no effect.
+  # With require-permission: true, players still need the effect's permission.
+  default-effect: ''
+  # Who has the permission of each effect (@PLUGIN_ID@.<effect>) when no permission plugin
+  # says otherwise: op (operators), true (everybody), false (nobody) or 'not op'.
+  effect-permission-default: op
+  # Logs in the console why an effect did or did not play, and other details that help to find
+  # problems.
+  debug: false
+
+@TRIGGERS@
+
+# Right click in the menu or /@ALIAS@ preview <effect> plays an effect in front of the player.
+previews:
+  enabled: true
+  # Seconds between two previews of a player. @PLUGIN_ID@.preview.bypass ignores it.
+  cooldown: 5
+  # How far in front of the player the preview plays, in blocks.
+  distance: 3
+  # true: only the player who previews sees the particles and hears the sounds.
+  # Fireworks and lightning are always seen by everybody nearby.
+  private: false
+  # Allow previews of effects the player cannot use yet.
+  locked-effects: true
+
+menu:
+  # Menu title; {page} and {pages} are the page numbers. On 1.8 and older, titles are cut after
+  # 32 characters.
+  title: '&0&n@PLUGIN@'
+  # Rows of the menu, 1 to 6.
+  rows: 6
+  # Slots that hold effects (0 is the top left corner): a range like '9-44' or a list like
+  # [10, 11, '19-25']. Effects that do not fit go to the next page.
+  effect-slots: '9-44'
+  # Close the menu after an effect has been selected.
+  close-on-select: true
+  # Leave out effects the player cannot use.
+  hide-locked-effects: false
+  # Let the selected effect glow.
+  glow-selected: true
+  # Item shown instead of the icon of effects the player cannot use, for example GRAY_DYE.
+  # '' shows the effect's own icon.
+  locked-icon: ''
+  # Lines added below the lore of every effect. {effect} is the effect's name, {id} its id.
+  effect-lore:
+    selected:
+      - ''
+      - '&a&lSelected'
+    available:
+      - ''
+      - '&eLeft click &7to select'
+      - '&eRight click &7to preview'
+    locked:
+      - ''
+      - '&cYou do not have this effect'
+      - '&eRight click &7to preview'
+  # Item for every slot that is not used. enabled: false leaves those slots empty.
+  filler:
+    enabled: true
+    item: GRAY_STAINED_GLASS_PANE
+    name: ' '
+  # In names and lore: {effect} is the selected effect, {page}, {pages}, {previous} and {next}
+  # are page numbers. The page buttons only show when there is a page to go to.
+  buttons:
+    clear:
+      enabled: true
+      slot: 4
+      item: [BARRIER, RED_STAINED_GLASS_PANE]
+      name: '&cClear Current Effect'
+      lore:
+        - '&7Your effect: {effect}'
+    current:
+      enabled: true
+      slot: 49
+      item: BOOK
+      name: '&eYour @KIND@ effect'
+      lore:
+        - '{effect}'
+    previous-page:
+      enabled: true
+      slot: 45
+      item: ARROW
+      name: '&a&lPrevious page'
+      lore:
+        - '&7Page {previous} of {pages}'
+    next-page:
+      enabled: true
+      slot: 53
+      item: ARROW
+      name: '&a&lNext page'
+      lore:
+        - '&7Page {next} of {pages}'
+  # Sounds of the menu. sound: '' turns a sound off.
+  sounds:
+    # An effect was selected.
+    select:
+      sound: BLOCK_NOTE_BLOCK_PLING
+      volume: 1
+      pitch: 2
+    # The player clicked an effect they cannot use.
+    locked:
+      sound: ENTITY_ITEM_BREAK
+      volume: 1
+      pitch: 1.1
+    # Next or previous page.
+    page:
+      sound: UI_BUTTON_CLICK
+      volume: 0.5
+      pitch: 1
+    # The effect was cleared.
+    clear:
+      sound: BLOCK_FIRE_EXTINGUISH
+      volume: 0.5
+      pitch: 1.2
+    # A preview starts (only the player hears it).
+    preview:
+      sound: ENTITY_EXPERIENCE_ORB_PICKUP
+      volume: 0.6
+      pitch: 1
+
+performance:
+  # Players further away than this many blocks do not see effects. Minecraft only shows particles
+  # up to 32 blocks away; above 32, particles are forced to show further (1.13+).
+  view-distance: 32
+  # How many animations (vortex, DNA, disco, ...) may run at the same time on the whole server.
+  # Further animations are skipped until others finish. 0 means no limit.
+  max-running-animations: 40
+  # Multiplies the amount of particles of every effect: 0.5 halves them, 2 doubles them.
+  particle-multiplier: 1.0
+
+storage:
+  # Where the effects players selected are saved:
+  #   YAML    the file players.yml in this folder
+  #   SQLITE  the file below, with the SQLite driver that comes with Spigot and Paper
+  #   MYSQL   a MySQL or MariaDB database; use it to share selections between servers
+  # If the database cannot be reached, selections are saved in players-fallback.yml and copied
+  # to the database once it can be reached again; it is tried every 5 minutes and on reload.
+  type: YAML
+  # The table in the database. DeathEffects and KillEffects use their own tables, so both can
+  # use the same database.
+  table: @PLUGIN_ID@_players
+  sqlite:
+    file: players.db
+  mysql:
+    host: localhost
+    port: 3306
+    database: minecraft
+    username: root
+    password: ''
+    # Extra connection settings for the database driver.
+    properties: 'useSSL=false&characterEncoding=utf8'

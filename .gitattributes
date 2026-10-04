@@ -1,0 +1,8 @@
+# Normalise line endings in the repository; Windows scripts keep CRLF.
+* text=auto eol=lf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.jar binary
+
+# Configurations saved by the old versions on Windows, kept with their original line endings on purpose.
+*/src/test/resources/legacy/*.yml -text

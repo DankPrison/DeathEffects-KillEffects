@@ -1,0 +1,23 @@
+# Gradle (only the build folders of the projects: buildSrc/src/.../build/ holds sources)
+.gradle/
+/build/
+/*/build/
+
+# IDEs
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+.vscode/
+.classpath
+.project
+.settings/
+.factorypath
+
+# Operating systems
+.DS_Store
+Thumbs.db
+
+# Local test servers
+run/

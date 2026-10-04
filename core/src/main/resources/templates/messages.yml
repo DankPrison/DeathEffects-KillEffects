@@ -1,0 +1,107 @@
+# ==============================================================================================
+#  @PLUGIN@ - messages
+# ==============================================================================================
+#
+# & colour codes work everywhere, and &#RRGGBB hex colours on Minecraft 1.16 and newer.
+# {prefix} is replaced by the prefix below. Words in braces such as {effect} are filled in by the
+# plugin; each message lists the ones it knows.
+# A message can also be a list of lines. Set a message to '' to turn it off.
+# After changing this file, run /@ALIAS@ reload.
+
+prefix: '&b(@PLUGIN@)&r '
+
+# ---- Selecting effects -----------------------------------------------------------------------
+
+# {effect}
+effect-selected: '{prefix}&7Your @KIND@ effect is now {effect}&7.'
+# {player} {effect}
+effect-selected-other: '{prefix}&7The @KIND@ effect of &e{player} &7is now {effect}&7.'
+effect-cleared: '{prefix}&aYour @KIND@ effect has been cleared.'
+# {player}
+effect-cleared-other: '{prefix}&aThe @KIND@ effect of &e{player} &ahas been cleared.'
+# Sent when a player joins and still has an effect selected. {effect}
+effect-restored: '{prefix}&6Your @KIND@ effect {effect} &6is active.'
+# Another plugin stopped the change.
+select-cancelled: '{prefix}&cThe @KIND@ effect cannot be changed right now.'
+# Sent when someone selects an effect for a player who does not have its permission, because
+# the effect only plays with the permission (see require-permission in config.yml).
+# {player} {effect} {permission}
+target-lacks-permission: '{prefix}&e{player} &7does not have the permission &e{permission}&7, so {effect} &7will not play until they get it.'
+
+# ---- Previews --------------------------------------------------------------------------------
+
+# {seconds}
+preview-cooldown: '{prefix}&cYou can preview another effect in {seconds}s.'
+preview-locked: '{prefix}&cYou can only preview effects you have.'
+previews-disabled: '{prefix}&cPreviews are turned off.'
+
+# ---- /@ALIAS@ info and /@ALIAS@ list ---------------------------------------------------------------
+
+# {effect} {id} {player}
+info-self: '{prefix}&7Your @KIND@ effect: {effect} &8({id})'
+info-self-none: '{prefix}&7You have no @KIND@ effect. Pick one with &e/@ALIAS@&7.'
+# {effect} {id} {player}
+info-other: '{prefix}&7The @KIND@ effect of &e{player}&7: {effect} &8({id})'
+# {player}
+info-other-none: '{prefix}&e{player} &7has no @KIND@ effect.'
+# The selected effect does not play because its permission is missing. {player} {permission}
+info-not-playing: '{prefix}&cIt does not play at the moment: the permission &e{permission} &cis missing.'
+# {count}
+list-header: '{prefix}&7Effects (&e{count}&7):'
+# {effect} {id}
+list-entry-selected: ' &a> {effect} &8({id}) &a(selected)'
+list-entry-available: ' &7- {effect} &8({id})'
+list-entry-locked: ' &8- {effect} &8({id}) &c(locked)'
+# Shown as {effect} in the menu when no effect is selected.
+none: '&7None'
+
+# ---- Errors ----------------------------------------------------------------------------------
+
+# {permission} is the permission that is missing, for example @PLUGIN_ID@.list.
+no-permission: '{prefix}&cYou do not have permission to do that.'
+# {effect}, {permission}
+no-permission-effect: '{prefix}&cYou do not have permission for {effect}&c.'
+players-only: '{prefix}&cOnly players can do that. Add a player name, or see /@PLUGIN_ID@ help.'
+# {input}
+player-not-found: '{prefix}&cThere is no player called &e{input} &conline.'
+# {input} {command}
+unknown-effect: '{prefix}&cThere is no effect called &e{input}&c. See &e/{command} list&c.'
+# {command}
+unknown-command: '{prefix}&cUnknown command. See &e/{command} help&c.'
+# {usage}
+usage: '{prefix}&cUsage: &e{usage}'
+
+# ---- Admin -----------------------------------------------------------------------------------
+
+# {player}
+menu-opened-other: '{prefix}&7Opened the menu for &e{player}&7.'
+# {count} {warnings}
+reloaded: '{prefix}&a@PLUGIN@ has been reloaded: {count} effects, {warnings} warnings (see the console).'
+# {error}
+reload-failed: '{prefix}&cThe files could not be loaded, the old settings stay active: {error}'
+# {plugin} {version} {server} {minecraft} {java} {particles} {storage} {effects} {animations}
+version:
+  - '{prefix}&e{plugin} &7{version}'
+  - '&7Server: &f{server} &7(Minecraft {minecraft}, Java {java})'
+  - '&7Particles: &f{particles}'
+  - '&7Storage: &f{storage}'
+  - '&7Effects: &f{effects} &7- running animations: &f{animations}'
+
+# ---- /@ALIAS@ help ---------------------------------------------------------------------------------
+
+# {plugin} {version}
+help-header: '&e&l{plugin} &7{version} &8- &7commands'
+# Each line is only shown to players who may use the command. {command} is the command used.
+help:
+  open: '&e/{command} &7- open the effect menu'
+  list: '&e/{command} list &7- list all effects'
+  select: '&e/{command} select <effect> &7- pick an effect'
+  preview: '&e/{command} preview <effect> &7- see an effect in front of you'
+  clear: '&e/{command} clear &7- remove your effect'
+  info: '&e/{command} info &7- show your effect'
+  select-other: '&e/{command} select <effect> <player> &7- pick an effect for a player'
+  clear-other: '&e/{command} clear <player> &7- remove the effect of a player'
+  open-other: '&e/{command} open <player> [page] &7- open the menu for a player'
+  info-other: '&e/{command} info <player> &7- show the effect of a player'
+  reload: '&e/{command} reload &7- reload all files'
+  version: '&e/{command} version &7- show version and server details'

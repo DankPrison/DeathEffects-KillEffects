@@ -1,0 +1,97 @@
+name: ${name}
+version: '${version}'
+main: com.dank420girl.${id}.${name}Plugin
+# Lets Spigot and Paper 1.13+ know the plugin uses the new item names; older servers ignore it.
+api-version: '1.13'
+folia-supported: true
+authors: [Dank420Girl]
+description: ${description}
+
+commands:
+  ${id}:
+    description: Opens the ${name} menu and manages ${kind} effects.
+    usage: /<command> [help|list|select|preview|clear|info|open|reload|version]
+    aliases: [${alias}, ${singular}]
+
+permissions:
+  # Everything below.
+  ${id}.*:
+    description: Everything ${name} offers.
+    default: op
+    children:
+      ${id}.gui: true
+      ${id}.select: true
+      ${id}.clear: true
+      ${id}.preview: true
+      ${id}.list: true
+      ${id}.info: true
+      ${id}.help: true
+      ${id}.alleffects: true
+      ${id}.preview.bypass: true
+      ${id}.admin: true
+
+  # ---- For players. Everybody has these unless a permission plugin takes them away.
+  ${id}.gui:
+    description: Open the effect menu with /${alias}.
+    default: true
+  ${id}.select:
+    description: Pick an effect with /${alias} select <effect> or /${alias} <effect>. The effect's own permission is needed as well.
+    default: true
+  ${id}.clear:
+    description: Clear your own effect, with /${alias} clear or the button in the menu.
+    default: true
+  ${id}.preview:
+    description: Preview effects, with a right click in the menu or /${alias} preview <effect>.
+    default: true
+  ${id}.list:
+    description: List the effects with /${alias} list.
+    default: true
+  ${id}.info:
+    description: See your own effect with /${alias} info.
+    default: true
+  ${id}.help:
+    description: See the commands with /${alias} help.
+    default: true
+
+  # ---- Effects. Each effect also has its own permission, ${id}.<effect>, added when the plugin starts.
+  ${id}.alleffects:
+    description: Use every effect. Each effect also has its own permission, ${id}.<effect>.
+    default: op
+  ${id}.preview.bypass:
+    description: Preview effects without waiting for the cooldown.
+    default: op
+
+  # ---- Admin commands
+  ${id}.admin:
+    description: All admin commands.
+    default: op
+    children:
+      ${id}.reload: true
+      ${id}.version: true
+      ${id}.gui.others: true
+      ${id}.select.others: true
+      ${id}.clear.others: true
+      ${id}.info.others: true
+  ${id}.reload:
+    description: Reload the configuration files with /${alias} reload.
+    default: op
+  ${id}.version:
+    description: See the version and server details with /${alias} version.
+    default: op
+  ${id}.gui.others:
+    description: Open the menu for other players with /${alias} open <player>.
+    default: op
+  ${id}.select.others:
+    description: Pick effects for other players with /${alias} select <effect> <player>.
+    default: op
+  ${id}.clear.others:
+    description: Clear the effect of other players with /${alias} clear <player>.
+    default: op
+  ${id}.info.others:
+    description: See the effect of other players with /${alias} info <player>.
+    default: op
+  ${id}.effects.others:
+    description: The old name of ${id}.select.others, kept so existing setups keep working.
+    default: op
+    children:
+      ${id}.select.others: true

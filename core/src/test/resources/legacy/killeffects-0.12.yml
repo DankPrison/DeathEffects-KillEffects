@@ -1,0 +1,147 @@
+Settings:
+   LoginMessageEnabled: true
+   Prefix: '&b(KillEffects)&r '
+   Selected: '&r &6Selected.'
+GUI:
+   Name: '&0&nKillEffects'
+   Filler: ' '
+   FillerItem: 'GRAY_STAINED_GLASS_PANE'
+   Next: '&a&lClick here for (Page 2)'
+   NextItem: 'LIME_STAINED_GLASS'
+   Back: '&a&lClick here for (Page 1)'
+   BackItem: 'LIME_STAINED_GLASS'
+   SelectSoundEnabled: true
+   SelectSound: 'BLOCK_NOTE_BLOCK_PLING'
+   SelectSoundVolume: 1
+   SelectSoundPitch: 2
+   NoIconSoundEnabled: true
+   NoIconSound: 'ENTITY_ITEM_BREAK'
+   NoIconSoundVolume: 1
+   NoIconSoundPitch: 1.1
+MySQL:
+   enabled: false
+   username: 'examplename'
+   password: 'password'
+   host: 'examplehost.net'
+   port: '3306'
+   database: 'exampleDatabase'
+Holiday:
+   SaintPatricksDay: "&2Saint Patricks Day &aEffect"
+   ValentinesDay: "&dValentine's Day &aEffect"
+   Easter: "&eE&da&bs&et&de&br &aEffect"
+   Thanksgiving: '&6Thanksgiving &aEffect'
+   NewYear: '&cN&fe&cw &fY&ce&fa&cr &aEffect'
+   Halloween: '&8H&ea&8l&el&8o&ew&8e&ee&8n &aEffect'
+   Christmas: '&2C&4h&fr&2i&4s&ft&2m&4a&fs &aEffect'
+   MothersDay: '&dMothers &5Day &aEffect'
+   FathersDay: '&bFathers &3Day &aEffect'
+   BlackFriday: '&8Black Friday &aEffect'
+EffectNames:
+   Flame: "&eFlame &aEffect"
+   Rainbow: "&cR&6a&ei&an&bb&3o&5w &aEffect"
+   Heart: "&dHeart &aEffect"
+   Firework: "&cF&fi&cr&fe&cw&fo&cr&fk &aEffect"
+   Cloud: "&lCloud &r&aEffect"
+   Lightning: "&eLightning &aEffect"
+   Coin: "&6C&eo&6i&en &aEffect"
+   Potion: "&3Potion &aEffect"
+   Blood: "&4Blood &aEffect"
+   Note: "&cNote &aEffect"
+   Flower: "&aF&el&ao&ew&ae&er &aEffect"
+   Chess: "&8C&fh&8e&fs&8s &aEffect"
+   Tnt: "&cT&fN&cT &aEffect"
+   Treasure: "&aT&er&7e&aa&es&7u&ar&ee &aEffect"
+   Water: "&9Water &aEffect"
+   Lava: "&6Lava &aEffect"
+   Ender: "&5Ender &aEffect"
+   Warm: "&6Warm &aEffect"
+   Cold: "&bC&fo&bl&fd &aEffect"
+   Pastel: "&cP&fa&ds&ct&fe&dl &aEffect"
+   Fish: "&3Fish &aEffects"
+   Cookie: "&6Cookie &aEffect"
+   Snow: "&f&lSnow &r&aEffect"
+   Smoke: "&8Smoke &aEffect"
+   Meat: "&cM&de&ca&dt &aEffect"
+   Angry: "&cAngry &aEffect"
+   Happy: "&2H&aa&2p&ap&2y &aEffect"
+   Enchanted: "&r&f&k|||&r&fEnchanted&k|||&r &aEffect"
+   Sun: "&eSun &aEffect"
+   Thunder: "&3T&eh&3u&en&3d&ee&3r &aEffect"
+   Coal: "&8Coal &aEffect"
+   Iron: "&7Iron &aEffect"
+   Gold: "&eGold &aEffect"
+   Diamond: "&bDiamond &aEffect"
+   Emerald: "&2Emerald &aEffect"
+   BloodHelix: "&4&k|||&r&cBlood Helix&r&4&k|||&r &r&aEffect"
+   Nuke: "&eNuke &aEffect"
+   Circle: "&eO &6Circle &eO &aEffect"
+   Vortex: "&d&nVortex&r&a Effect"
+   Dna: "&b&nDna&r&a Effect"
+   Disco: "&a&nDisco&r&a Effect"
+   Dragon: "&c&nDragon&r&a Effect"
+   Pentagon: "&4&nPentagon&r&a Effect"
+   Clear: "&cClear Current Effect"
+EffectIcons:
+   Flame: 'BLAZE_POWDER'
+   Rainbow: 'MAGMA_CREAM'
+   Heart: 'ROSE_RED'
+   Firework: 'FIREWORK_ROCKET'
+   Cloud: 'BLUE_WOOL'
+   Lightning: 'BLAZE_ROD'
+   Coin: 'LEGACY_DOUBLE_PLANT'
+   Potion: 'POTION'
+   Blood: 'REDSTONE'
+   Note: 'JUKEBOX'
+   Flower: 'DANDELION'
+   Chess: 'QUARTZ_BLOCK'
+   Tnt: 'GUNPOWDER'
+   Treasure: 'CHEST'
+   Water: 'WATER_BUCKET'
+   Lava: 'LAVA_BUCKET'
+   Ender: 'ENDER_EYE'
+   Warm: 'RED_WOOL'
+   Cold: 'LIGHT_BLUE_WOOL'
+   Pastel: 'POTION'
+   Fish: 'PUFFERFISH'
+   Cookie: 'COOKIE'
+   Snow: 'SNOWBALL'
+   Smoke: 'INK_SAC'
+   Meat: 'BEEF'
+   Angry: 'NETHER_WART'
+   Happy: 'APPLE'
+   Enchanted: 'ENCHANTING_TABLE'
+   Sun: 'FIREWORK_STAR'
+   Thunder: 'POTION'
+   Coal: 'COAL'
+   Iron: 'IRON_INGOT'
+   Gold: 'GOLD_INGOT'
+   Diamond: 'DIAMOND'
+   Emerald: 'EMERALD'
+   BloodHelix: 'REDSTONE_BLOCK'
+   Nuke: 'TNT'
+   Circle: 'FIRE_CHARGE'
+   Vortex: 'HOPPER'
+   Dna: 'REDSTONE_TORCH'
+   Disco: 'MUSIC_DISC_MALL'
+   Dragon: 'DRAGON_EGG'
+   Pentagon: 'OAK_TRAPDOOR'
+   FathersDay: 'CLOCK'
+   MothersDay: 'SUNFLOWER'
+   NewYears: 'FIREWORK_ROCKET'
+   Christmas: 'NETHER_STAR'
+   Valentines: 'ROSE_RED'
+   Easter: 'EGG'
+   StPatricks: 'LILY_PAD'
+   ThanksGiving: 'COOKED_CHICKEN'
+   Halloween: 'PUMPKIN'
+   BlackFriday: 'BLACK_WOOL'
+   Clear: 'BARRIER'
+Messages:
+   NoPermission: "&cYou dont have permission for this effect."
+   NoPermissionGUI: "&cYou dont have permission to open the gui."
+   NoPermissionReload: "&cYou dont have permission to reload this plugin."
+   EffectLoaded: "&6Your previous selected &aEffect &6has been restored."
+   ClearEffect: "&aCleared all effects."
+   Reloaded: "&aKillEffects has been reloaded."
+Data:
+   examplePlayer: "example"

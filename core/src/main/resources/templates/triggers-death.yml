@@ -1,0 +1,13 @@
+# When @KIND@ effects play.
+triggers:
+  # The player was killed by another player.
+  killed-by-player: true
+  # Every other death: mobs, falling, lava, ...
+  other-deaths: true
+
+# Only matters when @OTHER_PLUGIN@ runs on the same server. When one player kills another, both the
+# victim's death effect and the killer's kill effect play.
+compatibility:
+  # true: the death effect is skipped whenever the killer's kill effect plays.
+  # If @OTHER_PLUGIN@ is set to skip its effect as well, the kill effect plays.
+  skip-when-kill-effect-plays: false

@@ -1,0 +1,1145 @@
+# ==============================================================================================
+#  @PLUGIN@ - effects
+# ==============================================================================================
+#
+# Every effect is a section under 'effects'. Its key (for example 'flame') is the effect id,
+# used in commands and permissions:  /@ALIAS@ select flame  needs  @PLUGIN_ID@.flame
+#
+#   name:        name shown in the menu and in messages (& colour codes, &#RRGGBB on 1.16+)
+#   icon:        the menu item
+#   lore:        lines shown under the name in the menu (optional)
+#   permission:  the permission needed to use it (optional, the default is @PLUGIN_ID@.<id>);
+#                '' means everybody may use the effect
+#   order:       position in the menu (optional, the default is the order of this file)
+#   enabled:     false removes the effect without deleting it (optional)
+#   layers:      what the effect shows; all layers start together unless they have a 'delay'
+#
+# Item, sound and particle names are written for the Minecraft version of your server and are
+# translated automatically when the server moves to another version. Names from other versions
+# are understood as well. Where a value is a list, such as  sound: [A, B]  , the first name that
+# exists on your version is used.
+#
+# Effect ids may contain letters, digits, '-' and '_'. Change this file, then run /@ALIAS@ reload.
+# Every layer type and option is explained in the reference at the end of this file.
+
+effects:
+
+  flame:
+    name: '&eFlame &aEffect'
+    icon: BLAZE_POWDER
+    lore:
+      - '&7Goes up in a burst of flames.'
+    layers:
+      - type: particle
+        particle: FLAME
+        count: 25
+        offset: [0.3, 0.5, 0.3]
+        speed: 0.04
+        repeat: 3
+        interval: 3
+      - type: sound
+        sound: [ITEM_FIRECHARGE_USE, ITEM_FLINTANDSTEEL_USE]
+        volume: 0.8
+
+  heart:
+    name: '&dHeart &aEffect'
+    icon: RED_DYE
+    lore:
+      - '&7Leaves a little love behind.'
+    layers:
+      - type: particle
+        particle: HEART
+        count: 10
+        offset: 0.5
+        speed: 0.1
+        repeat: 2
+        interval: 8
+      - type: sound
+        sound: ENTITY_CAT_PURR
+        pitch: 1.3
+
+  rainbow:
+    name: '&cR&6a&ei&an&bb&3o&5w &aEffect'
+    icon: MAGMA_CREAM
+    lore:
+      - '&7Every colour of the rainbow.'
+    layers:
+      - type: particle
+        particle: ITEM
+        items: [RED_WOOL, ORANGE_WOOL, YELLOW_WOOL, LIME_WOOL, LIGHT_BLUE_WOOL, BLUE_WOOL, PURPLE_WOOL]
+        count: 12
+        offset: 0.5
+        speed: 0.1
+      - type: animation
+        shape: RING
+        particle: DUST
+        color: RAINBOW
+        radius: 1.2
+        points: 30
+        spin: 12
+        duration: 30
+        y: 1
+      - type: sound
+        sound: ENTITY_PLAYER_LEVELUP
+        volume: 0.6
+        pitch: 1.5
+
+  firework:
+    name: '&cF&fi&cr&fe&cw&fo&cr&fk &aEffect'
+    icon: FIREWORK_ROCKET
+    lore:
+      - '&7Goes off like a firework.'
+    layers:
+      - type: firework
+        shape: [BALL_LARGE, STAR, BURST]
+        colors: RANDOM
+        color-count: 3
+        y: 1.5
+
+  cloud:
+    name: '&lCloud &r&aEffect'
+    icon: BLUE_WOOL
+    lore:
+      - '&7Vanishes in a puff of cloud.'
+    layers:
+      - type: particle
+        particle: CLOUD
+        count: 80
+        offset: 0.2
+        speed: 0.1
+
+  lightning:
+    name: '&eLightning &aEffect'
+    icon: BLAZE_ROD
+    lore:
+      - '&7Struck by lightning.'
+      - '&8(It looks real, but it is harmless.)'
+    layers:
+      - type: lightning
+
+  coin:
+    name: '&6C&eo&6i&en &aEffect'
+    icon: SUNFLOWER
+    lore:
+      - '&7Pays out in gold.'
+    layers:
+      - type: particle
+        particle: ITEM
+        items: [GOLD_NUGGET, SUNFLOWER]
+        count: 20
+        offset: 0.3
+        speed: 0.12
+      - type: sound
+        sound: ENTITY_EXPERIENCE_ORB_PICKUP
+        pitch: 1.5
+        repeat: 3
+        interval: 3
+
+  happy:
+    name: '&2H&aa&2p&ap&2y &aEffect'
+    icon: APPLE
+    lore:
+      - '&7Happy to the very end.'
+    layers:
+      - type: particle
+        particle: HAPPY_VILLAGER
+        count: 80
+        offset: 0.5
+        speed: 0.01
+      - type: sound
+        sound: ENTITY_VILLAGER_YES
+
+  potion:
+    name: '&3Potion &aEffect'
+    icon: POTION
+    lore:
+      - '&7A swirl of potion colours.'
+    layers:
+      - type: particle
+        particle: ENTITY_EFFECT
+        color: RANDOM
+        count: 80
+        offset: 0.4
+        speed: 0.5
+        y: 0.5
+      - type: sound
+        sound: [ENTITY_SPLASH_POTION_BREAK, BLOCK_GLASS_BREAK]
+        volume: 0.8
+
+  blood:
+    name: '&4Blood &aEffect'
+    icon: REDSTONE
+    lore:
+      - '&7A messy one.'
+    layers:
+      - type: particle
+        particle: ITEM
+        item: REDSTONE
+        count: 30
+        offset: 0.2
+        speed: 0.1
+      - type: particle
+        particle: BLOCK
+        block: REDSTONE_BLOCK
+        count: 30
+        offset: 0.2
+        speed: 0.1
+      - type: particle
+        particle: DUST
+        color: DARK_RED
+        size: 1.3
+        count: 15
+        offset: [0.3, 0.5, 0.3]
+      - type: sound
+        sound: ENTITY_SLIME_ATTACK
+        pitch: 0.7
+
+  note:
+    name: '&cNote &aEffect'
+    icon: JUKEBOX
+    lore:
+      - '&7Goes out on a high note.'
+    layers:
+      - type: particle
+        particle: NOTE
+        count: 12
+        offset: 0.5
+        speed: 1
+      - type: sound
+        sound: BLOCK_NOTE_BLOCK_HARP
+        pitch: 1.0
+      - type: sound
+        sound: BLOCK_NOTE_BLOCK_HARP
+        pitch: 1.26
+        delay: 3
+      - type: sound
+        sound: BLOCK_NOTE_BLOCK_HARP
+        pitch: 1.5
+        delay: 6
+      - type: sound
+        sound: BLOCK_NOTE_BLOCK_HARP
+        pitch: 2.0
+        delay: 9
+
+  flower:
+    name: '&aF&el&ao&ew&ae&er &aEffect'
+    icon: DANDELION
+    lore:
+      - '&7Pushing up daisies.'
+    layers:
+      - type: particle
+        particle: ITEM
+        items: [DANDELION, POPPY, BLUE_ORCHID, ALLIUM, OXEYE_DAISY, PINK_TULIP, SUNFLOWER, OAK_SAPLING, SPRUCE_SAPLING, ACACIA_SAPLING, DARK_OAK_SAPLING]
+        count: 4
+        offset: 0.3
+        speed: 0.1
+      - type: sound
+        sound: BLOCK_GRASS_BREAK
+
+  chess:
+    name: '&8C&fh&8e&fs&8s &aEffect'
+    icon: QUARTZ_BLOCK
+    lore:
+      - '&7Checkmate.'
+    layers:
+      - type: particle
+        particle: BLOCK
+        blocks: [QUARTZ_BLOCK, COAL_BLOCK]
+        count: 15
+        offset: 0.3
+        speed: 0.1
+      - type: sound
+        sound: BLOCK_STONE_BREAK
+
+  tnt:
+    name: '&cT&fN&cT &aEffect'
+    icon: GUNPOWDER
+    lore:
+      - '&7Ka-boom! No blocks were harmed.'
+    layers:
+      - type: particle
+        particle: EXPLOSION
+        count: 8
+        offset: 0.6
+        speed: 1
+      - type: particle
+        particle: LARGE_SMOKE
+        count: 20
+        offset: 0.4
+        speed: 0.05
+        delay: 2
+      - type: sound
+        sound: ENTITY_GENERIC_EXPLODE
+        volume: 0.8
+
+  treasure:
+    name: '&aT&er&7e&aa&es&7u&ar&ee &aEffect'
+    icon: CHEST
+    lore:
+      - '&7Drops all the loot.'
+    layers:
+      - type: particle
+        particle: ITEM
+        items: [DIAMOND, GOLD_INGOT, IRON_INGOT, EMERALD]
+        count: 15
+        offset: 0.5
+        speed: 0.1
+      - type: sound
+        sound: BLOCK_CHEST_OPEN
+        volume: 0.8
+
+  water:
+    name: '&9Water &aEffect'
+    icon: WATER_BUCKET
+    lore:
+      - '&7Makes a splash.'
+    layers:
+      - type: particle
+        particle: FISHING
+        count: 25
+        offset: 0.5
+        speed: 0.1
+      - type: particle
+        particle: SPLASH
+        count: 40
+        offset: 0.4
+        speed: 0.2
+      - type: sound
+        sound: ENTITY_GENERIC_SPLASH
+        volume: 0.7
+
+  lava:
+    name: '&6Lava &aEffect'
+    icon: LAVA_BUCKET
+    lore:
+      - '&7Bubbling hot.'
+    layers:
+      - type: particle
+        particle: LAVA
+        count: 12
+        offset: 0.5
+        speed: 0.1
+      - type: particle
+        particle: DRIPPING_LAVA
+        count: 15
+        offset: 0.4
+      - type: sound
+        sound: BLOCK_LAVA_POP
+        repeat: 3
+        interval: 4
+
+  ender:
+    name: '&5Ender &aEffect'
+    icon: ENDER_EYE
+    lore:
+      - '&7Teleported away.'
+    layers:
+      - type: particle
+        particle: PORTAL
+        count: 60
+        offset: [0.3, 0.6, 0.3]
+        speed: 0.6
+      - type: particle
+        particle: BLOCK
+        block: END_STONE
+        count: 10
+        offset: 0.3
+        speed: 0.1
+      - type: sound
+        sound: ENTITY_ENDERMAN_TELEPORT
+
+  warm:
+    name: '&6Warm &aEffect'
+    icon: RED_WOOL
+    lore:
+      - '&7Cosy and warm.'
+    layers:
+      - type: particle
+        particle: ITEM
+        items: [ORANGE_WOOL, RED_STAINED_GLASS_PANE, YELLOW_WOOL]
+        count: 8
+        offset: 0.3
+        speed: 0.1
+      - type: particle
+        particle: FLAME
+        count: 10
+        offset: 0.3
+        speed: 0.02
+      - type: sound
+        sound: BLOCK_FIRE_AMBIENT
+
+  cold:
+    name: '&bC&fo&bl&fd &aEffect'
+    icon: LIGHT_BLUE_WOOL
+    lore:
+      - '&7Frozen solid.'
+    layers:
+      - type: particle
+        particle: BLOCK
+        blocks: [LIGHT_BLUE_STAINED_GLASS, BLUE_STAINED_GLASS, ICE]
+        count: 8
+        offset: 0.3
+        speed: 0.1
+      - type: particle
+        particle: CLOUD
+        count: 25
+        offset: 0.1
+        speed: 0.08
+      - type: sound
+        sound: BLOCK_GLASS_BREAK
+        pitch: 1.4
+
+  pastel:
+    name: '&cP&fa&ds&ct&fe&dl &aEffect'
+    icon: PINK_DYE
+    lore:
+      - '&7Soft and sweet.'
+    layers:
+      - type: particle
+        particle: ITEM
+        items: [WHITE_STAINED_GLASS_PANE, PINK_STAINED_GLASS_PANE, LIGHT_BLUE_STAINED_GLASS_PANE]
+        count: 6
+        offset: 0.3
+        speed: 0.1
+      - type: particle
+        particle: DUST
+        color: ['#FFB3BA', '#FFDFBA', '#FFFFBA', '#BAFFC9', '#BAE1FF', '#E0BBE4']
+        count: 30
+        offset: 0.4
+      - type: sound
+        sound: [BLOCK_AMETHYST_BLOCK_CHIME, BLOCK_NOTE_BLOCK_CHIME, ENTITY_EXPERIENCE_ORB_PICKUP]
+
+  fish:
+    name: '&3Fish &aEffect'
+    icon: PUFFERFISH
+    lore:
+      - '&7Sleeps with the fishes.'
+    layers:
+      - type: particle
+        particle: ITEM
+        items: [COD, SALMON, TROPICAL_FISH, PUFFERFISH]
+        count: 5
+        offset: 0.3
+        speed: 0.1
+      - type: particle
+        particle: FISHING
+        count: 15
+        offset: 0.3
+        speed: 0.05
+      - type: sound
+        sound: ENTITY_FISHING_BOBBER_SPLASH
+
+  cookie:
+    name: '&6Cookie &aEffect'
+    icon: COOKIE
+    lore:
+      - '&7That is how the cookie crumbles.'
+    layers:
+      - type: particle
+        particle: ITEM
+        item: COOKIE
+        count: 35
+        offset: 0.7
+        speed: 0.1
+      - type: sound
+        sound: ENTITY_GENERIC_EAT
+
+  snow:
+    name: '&f&lSnow &r&aEffect'
+    icon: SNOWBALL
+    lore:
+      - '&7Let it snow.'
+    layers:
+      - type: particle
+        particle: BLOCK
+        blocks: [SNOW_BLOCK, ICE]
+        count: 8
+        offset: 0.3
+        speed: 0.1
+      - type: particle
+        particle: ITEM_SNOWBALL
+        count: 15
+        offset: 0.3
+        speed: 0.1
+      - type: particle
+        particle: [SNOWFLAKE, FIREWORK]
+        count: 20
+        offset: [0.6, 0.8, 0.6]
+        speed: 0.02
+      - type: sound
+        sound: BLOCK_SNOW_BREAK
+
+  smoke:
+    name: '&8Smoke &aEffect'
+    icon: INK_SAC
+    lore:
+      - '&7Gone in a puff of smoke.'
+    layers:
+      - type: particle
+        particle: LARGE_SMOKE
+        count: 30
+        offset: [0.3, 0.5, 0.3]
+        speed: 0.02
+      - type: sound
+        sound: BLOCK_FIRE_EXTINGUISH
+        volume: 0.6
+
+  meat:
+    name: '&cM&de&ca&dt &aEffect'
+    icon: BEEF
+    lore:
+      - '&7Fresh from the butcher.'
+    layers:
+      - type: particle
+        particle: ITEM
+        items: [BEEF, CHICKEN, PORKCHOP, MUTTON, RABBIT]
+        count: 6
+        offset: 0.5
+        speed: 0.08
+      - type: sound
+        sound: ENTITY_PLAYER_BURP
+
+  angry:
+    name: '&cAngry &aEffect'
+    icon: NETHER_WART
+    lore:
+      - '&7Not happy about this.'
+    layers:
+      - type: particle
+        particle: ANGRY_VILLAGER
+        count: 25
+        offset: 0.5
+        speed: 0.01
+      - type: sound
+        sound: ENTITY_VILLAGER_NO
+
+  enchanted:
+    name: '&r&f&k|||&r&fEnchanted&k|||&r &aEffect'
+    icon: ENCHANTING_TABLE
+    lore:
+      - '&7Mysterious runes swirl in.'
+    layers:
+      - type: particle
+        particle: ENCHANT
+        count: 300
+        offset: 0.5
+        speed: 1
+      - type: sound
+        sound: [BLOCK_ENCHANTMENT_TABLE_USE, ENTITY_PLAYER_LEVELUP]
+
+  sun:
+    name: '&eSun &aEffect'
+    icon: FIREWORK_STAR
+    lore:
+      - '&7Shines bright.'
+    layers:
+      - type: particle
+        particle: BLOCK
+        block: GOLD_BLOCK
+        count: 20
+        offset: 0.3
+        speed: 0.1
+      - type: particle
+        particle: FLAME
+        count: 20
+        offset: [0.3, 0.4, 0.3]
+        speed: 0.1
+      - type: animation
+        shape: RING
+        particle: FLAME
+        radius: 1.3
+        points: 20
+        spin: 9
+        duration: 20
+        y: 1
+
+  thunder:
+    name: '&3T&eh&3u&en&3d&ee&3r &aEffect'
+    icon: POTION
+    lore:
+      - '&7A storm breaks loose.'
+    layers:
+      - type: particle
+        particle: CLOUD
+        count: 30
+        offset: [0.8, 0.1, 0.8]
+        speed: 0.01
+        y: 3
+        repeat: 3
+        interval: 5
+      - type: particle
+        particle: DRIPPING_WATER
+        count: 25
+        offset: [0.7, 0, 0.7]
+        speed: 0
+        y: 2.8
+        repeat: 3
+        interval: 5
+      - type: particle
+        particle: SPLASH
+        count: 20
+        offset: [0.3, 0.4, 0.3]
+        speed: 0.1
+        delay: 5
+      - type: lightning
+        delay: 5
+
+  coal:
+    name: '&8Coal &aEffect'
+    icon: COAL
+    lore:
+      - '&7A lump of coal.'
+    layers:
+      - type: particle
+        particle: ITEM
+        item: COAL
+        count: 20
+        offset: 0.3
+        speed: 0.1
+      - type: particle
+        particle: LARGE_SMOKE
+        count: 5
+        offset: 0.3
+        speed: 0.02
+      - type: sound
+        sound: BLOCK_STONE_BREAK
+
+  iron:
+    name: '&7Iron &aEffect'
+    icon: IRON_INGOT
+    lore:
+      - '&7Strong as iron.'
+    layers:
+      - type: particle
+        particle: ITEM
+        item: IRON_INGOT
+        count: 20
+        offset: 0.3
+        speed: 0.1
+      - type: particle
+        particle: FIREWORK
+        count: 5
+        offset: 0.3
+        speed: 0.1
+      - type: sound
+        sound: BLOCK_ANVIL_LAND
+        volume: 0.3
+        pitch: 1.6
+
+  gold:
+    name: '&eGold &aEffect'
+    icon: GOLD_INGOT
+    lore:
+      - '&7Worth its weight in gold.'
+    layers:
+      - type: particle
+        particle: ITEM
+        item: GOLD_INGOT
+        count: 20
+        offset: 0.3
+        speed: 0.1
+      - type: particle
+        particle: FIREWORK
+        count: 5
+        offset: 0.3
+        speed: 0.1
+      - type: sound
+        sound: ENTITY_EXPERIENCE_ORB_PICKUP
+        pitch: 1.2
+
+  diamond:
+    name: '&bDiamond &aEffect'
+    icon: DIAMOND
+    lore:
+      - '&7Shine bright like a diamond.'
+    layers:
+      - type: particle
+        particle: ITEM
+        item: DIAMOND
+        count: 20
+        offset: 0.3
+        speed: 0.1
+      - type: particle
+        particle: FIREWORK
+        count: 5
+        offset: 0.3
+        speed: 0.1
+      - type: sound
+        sound: ENTITY_EXPERIENCE_ORB_PICKUP
+        pitch: 1.8
+
+  emerald:
+    name: '&2Emerald &aEffect'
+    icon: EMERALD
+    lore:
+      - '&7A good trade.'
+    layers:
+      - type: particle
+        particle: ITEM
+        item: EMERALD
+        count: 20
+        offset: 0.3
+        speed: 0.1
+      - type: particle
+        particle: FIREWORK
+        count: 5
+        offset: 0.3
+        speed: 0.1
+      - type: sound
+        sound: ENTITY_VILLAGER_TRADE
+
+  bloodhelix:
+    name: '&4&k|||&r&cBlood Helix&r&4&k|||&r &r&aEffect'
+    icon: REDSTONE_BLOCK
+    lore:
+      - '&7Spirals of blood rise up.'
+    layers:
+      - type: animation
+        shape: HELIX_CONE
+        particle: DUST
+        color: '#C00000'
+        period: 3
+        duration: 72
+
+  nuke:
+    name: '&eNuke &aEffect'
+    icon: TNT
+    lore:
+      - '&7Goes out with a very big bang.'
+    layers:
+      - type: particle
+        particle: EXPLOSION_EMITTER
+        count: 1
+        offset: 0
+        speed: 0
+        y: 0.5
+      - type: animation
+        shape: SHOCKWAVE
+        particle: FIREWORK
+        second-particle: FLAME
+      - type: sound
+        sound: ENTITY_GENERIC_EXPLODE
+        pitch: 0.6
+
+  circle:
+    name: '&eO &6Circle &eO &aEffect'
+    icon: FIRE_CHARGE
+    lore:
+      - '&7Rings of fire spread out.'
+    layers:
+      - type: animation
+        shape: RING_WAVE
+        particle: FLAME
+      - type: particle
+        particle: CLOUD
+        count: 20
+        offset: 0.3
+        speed: 0.1
+        y: 0.2
+        repeat: 5
+        interval: 2
+      - type: particle
+        particle: SMOKE
+        count: 20
+        offset: 0.3
+        speed: 0.1
+        y: 0.2
+        repeat: 5
+        interval: 2
+      - type: sound
+        sound: [ITEM_FIRECHARGE_USE, ITEM_FLINTANDSTEEL_USE]
+
+  vortex:
+    name: '&d&nVortex&r&a Effect'
+    icon: HOPPER
+    lore:
+      - '&7A whirl of fire.'
+    layers:
+      - type: animation
+        shape: VORTEX
+        particle: FLAME
+        y: 1
+
+  dna:
+    name: '&b&nDna&r&a Effect'
+    icon: REDSTONE_TORCH
+    lore:
+      - '&7Unravels a double helix.'
+    layers:
+      - type: animation
+        shape: DNA
+        particle: FLAME
+        base-particle: FISHING
+        base2-particle: DUST
+        y: 1
+
+  disco:
+    name: '&a&nDisco&r&a Effect'
+    icon: MUSIC_DISC_MALL
+    lore:
+      - '&7One last dance under the disco ball.'
+    layers:
+      - type: animation
+        shape: DISCO_BALL
+        particle: FLAME
+        line-particle: DUST
+        line-color: RANDOM
+        y: 5
+
+  dragon:
+    name: '&c&nDragon&r&a Effect'
+    icon: DRAGON_EGG
+    lore:
+      - '&7Breathes fire one last time.'
+    layers:
+      - type: animation
+        shape: DRAGON_BREATH
+        particle: FLAME
+        y: 1
+      - type: particle
+        particle: [DRAGON_BREATH, PORTAL]
+        count: 30
+        offset: 0.4
+        speed: 0.02
+      - type: sound
+        sound: ENTITY_ENDER_DRAGON_GROWL
+        volume: 0.6
+
+  pentagon:
+    name: '&4&nPentagon&r&a Effect'
+    icon: OAK_TRAPDOOR
+    lore:
+      - '&7Draws a pentagram on the ground.'
+    layers:
+      - type: animation
+        shape: POLYGON
+        particle: DUST
+        color: RED
+        sides: 5
+        radius: 3
+        connect-all: true
+        y: 0.2
+
+  halloween:
+    name: '&8H&ea&8l&el&8o&ew&8e&ee&8n &aEffect'
+    icon: PUMPKIN
+    lore:
+      - '&7Trick or treat!'
+    layers:
+      - type: particle
+        particle: ITEM
+        items: [PUMPKIN, DEAD_BUSH]
+        count: 10
+        offset: 0.3
+        speed: 0.1
+      - type: particle
+        particle: WITCH
+        count: 20
+        offset: 0.4
+        speed: 0.05
+      - type: sound
+        sound: [ENTITY_WITCH_CELEBRATE, ENTITY_GHAST_SCREAM]
+        volume: 0.6
+
+  thanksgiving:
+    name: '&6Thanksgiving &aEffect'
+    icon: COOKED_CHICKEN
+    lore:
+      - '&7Pass the pie.'
+    layers:
+      - type: particle
+        particle: ITEM
+        items: [COOKED_CHICKEN, PUMPKIN_PIE, BREAD, BAKED_POTATO]
+        count: 8
+        offset: 0.3
+        speed: 0.1
+      - type: sound
+        sound: ENTITY_GENERIC_EAT
+
+  blackfriday:
+    name: '&8Black Friday &aEffect'
+    icon: BLACK_WOOL
+    lore:
+      - '&7Everything must go!'
+    layers:
+      - type: particle
+        particle: ITEM
+        items: [BLACK_WOOL, SUNFLOWER, GOLD_NUGGET]
+        count: 10
+        offset: 0.3
+        speed: 0.1
+      - type: sound
+        sound: ENTITY_ITEM_PICKUP
+        pitch: 0.8
+        repeat: 3
+        interval: 2
+
+  father:
+    name: '&bFathers &3Day &aEffect'
+    icon: CLOCK
+    lore:
+      - '&7For the best dad.'
+    layers:
+      - type: particle
+        particle: ITEM
+        item: LIGHT_BLUE_WOOL
+        count: 10
+        offset: 0.3
+        speed: 0.1
+      - type: particle
+        particle: HEART
+        count: 10
+        offset: 0.3
+        speed: 0.1
+
+  mother:
+    name: '&dMothers &5Day &aEffect'
+    icon: SUNFLOWER
+    lore:
+      - '&7For the best mum.'
+    layers:
+      - type: particle
+        particle: ITEM
+        items: [PINK_WOOL, PINK_TULIP, POPPY]
+        count: 6
+        offset: 0.3
+        speed: 0.1
+      - type: particle
+        particle: HEART
+        count: 10
+        offset: 0.3
+        speed: 0.1
+
+  stpatrick:
+    name: '&2Saint Patricks Day &aEffect'
+    icon: LILY_PAD
+    lore:
+      - '&7The luck of the Irish.'
+    layers:
+      - type: particle
+        particle: ITEM
+        items: [LIME_WOOL, LIME_STAINED_GLASS_PANE, SUNFLOWER]
+        count: 10
+        offset: 0.3
+        speed: 0.1
+      - type: particle
+        particle: HAPPY_VILLAGER
+        count: 20
+        offset: 0.5
+        speed: 0.01
+
+  easter:
+    name: '&eE&da&bs&et&de&br &aEffect'
+    icon: EGG
+    lore:
+      - '&7Happy egg hunting.'
+    layers:
+      - type: particle
+        particle: ITEM
+        item: EGG
+        count: 10
+        offset: 0.3
+        speed: 0.1
+      - type: particle
+        particle: ITEM
+        items: [WHITE_WOOL, RED_WOOL, LIME_WOOL, PINK_WOOL, LIGHT_BLUE_WOOL, YELLOW_WOOL, ORANGE_WOOL, BLUE_WOOL, PURPLE_WOOL, MAGENTA_WOOL, CYAN_WOOL, GREEN_WOOL]
+        count: 3
+        offset: 0.3
+        speed: 0.1
+      - type: sound
+        sound: ENTITY_CHICKEN_EGG
+
+  newyear:
+    name: '&cN&fe&cw &fY&ce&fa&cr &aEffect'
+    icon: FIREWORK_ROCKET
+    lore:
+      - '&7Happy New Year!'
+    layers:
+      - type: firework
+        count: 2
+        spread: 1.5
+        instant: false
+        repeat: 3
+        interval: 10
+        y: 0.5
+
+  christmas:
+    name: '&2C&4h&fr&2i&4s&ft&2m&4a&fs &aEffect'
+    icon: NETHER_STAR
+    lore:
+      - '&7Merry Christmas!'
+    layers:
+      - type: particle
+        particle: ITEM
+        items: [SNOW_BLOCK, RED_WOOL, WHEAT, APPLE]
+        count: 10
+        offset: 0.3
+        speed: 0.1
+      - type: particle
+        particle: [SNOWFLAKE, ITEM_SNOWBALL]
+        count: 25
+        offset: [0.8, 0.5, 0.8]
+        speed: 0.02
+        y: 2
+      - type: sound
+        sound: [BLOCK_NOTE_BLOCK_BELL, BLOCK_NOTE_BLOCK_PLING]
+        pitch: 1.0
+      - type: sound
+        sound: [BLOCK_NOTE_BLOCK_BELL, BLOCK_NOTE_BLOCK_PLING]
+        pitch: 1.26
+        delay: 4
+      - type: sound
+        sound: [BLOCK_NOTE_BLOCK_BELL, BLOCK_NOTE_BLOCK_PLING]
+        pitch: 1.5
+        delay: 8
+
+  valentinesday:
+    name: '&dValentine''s Day &aEffect'
+    icon: RED_DYE
+    lore:
+      - '&7Be mine.'
+    layers:
+      - type: particle
+        particle: HEART
+        count: 10
+        offset: 0.3
+        speed: 0.1
+      - type: particle
+        particle: ITEM
+        items: [RED_STAINED_GLASS_PANE, RED_WOOL, PINK_WOOL]
+        count: 8
+        offset: 0.3
+        speed: 0.1
+      - type: animation
+        shape: RING
+        particle: DUST
+        color: ['#FF4D6D', '#FF8FA3']
+        radius: 1
+        points: 16
+        spin: 15
+        duration: 20
+        y: 1
+
+
+# ==============================================================================================
+#  Reference
+# ==============================================================================================
+#
+# Options every layer has:
+#   type:       particle, firework, lightning, sound or animation
+#   y:          height above the place of death (particles and fireworks: 1, others: 0)
+#   delay:      ticks to wait before the layer starts (20 ticks = 1 second)
+#   repeat:     how many times the layer plays (default 1)
+#   interval:   ticks between repeats (default 5)
+#
+# ---- type: particle -------------------------------------------------------------------------
+#   A burst of particles.
+#   particle:   the particle, for example FLAME, HEART, CLOUD, DUST, ITEM or BLOCK
+#               (all names: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Particle.html)
+#   count:      number of particles (default 10)
+#   offset:     how far they spread from the centre: one number, or [x, y, z] (default 0.3)
+#   speed:      how fast they fly (default 0.05); for NOTE particles 1 gives random colours
+#   item/items:   the item(s) for ITEM particles, for example  items: [DIAMOND, EMERALD]
+#   block/blocks: the block(s) for BLOCK, FALLING_DUST and similar particles
+#               With several items or blocks each of them gets its own burst of 'count' particles.
+#   color:      colour of DUST, DUST_COLOR_TRANSITION, ENTITY_EFFECT and other coloured particles:
+#               '#FF0000', '255,0,0', a name such as RED, a list of colours to cycle through,
+#               RAINBOW or RANDOM
+#   color2:     the second colour of DUST_COLOR_TRANSITION
+#   size:       size of DUST particles (default 1)
+#   value:      the note (0 to 24) that sets the colour of NOTE particles, or a number some newer
+#               particles need, such as the roll of SCULK_CHARGE
+#
+# ---- type: firework -------------------------------------------------------------------------
+#   Firework explosions. They never cause damage.
+#   count:      number of fireworks (default 1)
+#   spread:     how far apart they are (default 0.5)
+#   shape:      BALL, BALL_LARGE, STAR, BURST, CREEPER, a list of these, or RANDOM (default)
+#   colors:     colours like the 'color' of particles (default RANDOM)
+#   color-count: how many random colours each firework gets (default 2)
+#   fade-colors: colours the explosion fades to (optional)
+#   flicker:    true, false or RANDOM (default)
+#   trail:      true, false or RANDOM (default)
+#   instant:    true explodes right away (default); false lets the rocket fly up first
+#
+# ---- type: lightning ------------------------------------------------------------------------
+#   Lightning that looks and sounds real but never causes fire or damage.
+#   count:      number of strikes (default 1)
+#   spread:     how far apart they are (default 0)
+#
+# ---- type: sound ----------------------------------------------------------------------------
+#   sound:      the sound, for example ENTITY_PLAYER_LEVELUP; vanilla keys such as
+#               entity.player.levelup and resource pack sounds (mypack:my.sound) work too
+#               (all names: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html)
+#   volume:     1 can be heard about 16 blocks away (default 1)
+#   pitch:      0.5 to 2 (default 1)
+#
+# ---- type: animation ------------------------------------------------------------------------
+#   A shape drawn with particles over several ticks.
+#   shape:      one of the shapes below
+#   particle:   the particle, with the same extra options as particle layers (item, color, ...)
+#   period:     ticks between two frames
+#   duration:   how many ticks the animation lasts
+#   Most shapes have their own options, all optional:
+#
+#   HELIX_CONE    strands spiralling up a narrowing cone (Blood Helix); period 3, duration 72
+#                 radius: 1.25, height: 3.1, strands: 2, points: 33, rotation: 22.5 (degrees per frame)
+#   SHOCKWAVE     a ring racing outwards in a fading wave (Nuke); period 1, duration 40
+#                 second-particle: FLAME (drawn between the first, 'none' to turn off),
+#                 start-radius: 0.8, max-radius: 10, growth: 0.314, points: 64, height: 1.5,
+#                 amplitude: 2, damping: 0.1
+#   RING_WAVE     stacked rings growing outwards (Circle); period 2, duration 12
+#                 start-radius: 1, growth: 1, max-radius: 4, density: 10 (points per block of
+#                 radius), rings: 3, ring-spacing: 1
+#   VORTEX        helices twisting upwards (Vortex); period 1, duration 80
+#                 radius: 2, grow: 0.05, radials: 11.25, circles: 3, helixes: 4, height: 5,
+#                 direction: UP or FORWARD (the way the player faced)
+#   DNA           a double helix with base pairs (DNA); period 1, duration 100
+#                 base-particle: FISHING, base2-particle: DUST (with base2-color and so on),
+#                 radius: 1.2, height: 6, grow: 0.1, radials: 6, particles-per-frame: 3,
+#                 base-interval: 10, base-particles: 10, direction: UP or FORWARD
+#   DISCO_BALL    a ball shooting beams of light (Disco); period 7, duration 105
+#                 line-particle: DUST (with line-color and so on, 'none' to turn off),
+#                 radius: 0.6, sphere-particles: 50, max-lines: 7, line-length: 15,
+#                 line-particles: 40, direction: DOWN, UP or BOTH
+#   DRAGON_BREATH arcs of fire breathed the way the player faced (Dragon); period 2, duration 60
+#                 arcs: 20, particles: 30, steps-per-frame: 2, length: 4, pitch: 0.1
+#   POLYGON       a polygon on the ground, a pentagram with connect-all (Pentagon); period 2,
+#                 duration 100
+#                 sides: 5, radius: 3, connect-all: true, density: 4 (points per block), spin: 0
+#   SPHERE        particles on the surface of a ball; period 1, duration 40
+#                 radius: 1.5, grow: 0 (added to the radius every frame), particles: 30
+#   RING          a spinning ring; period 1, duration 40
+#                 radius: 1.5, points: 24, spin: 10 (degrees per frame), tilt-x: 0, tilt-z: 0,
+#                 wobble: 0
+#   HELIX         curved arms spiralling out on the ground; period 4, duration 40
+#                 strands: 6, points: 30, radius: 3, curve: 3, rotation: 15
+#   TORNADO       a funnel crowned by a cloud; period 3, duration 80
+#                 cloud-particle: LARGE_SMOKE ('none' to turn off), height: 5, max-radius: 2.5,
+#                 spacing: 0.4, density: 8, cloud-size: 2.5, cloud-particles: 40, spin: 20
+#   FOUNTAIN      arcs splashing out around a spout; period 2, duration 60
+#                 strands: 10, strand-particles: 30, spout-particles: 40, radius: 2.5,
+#                 spout-radius: 0.25, height: 2, spout-height: 3.5, rotation: 45
+#
+# Example of an effect of your own:
+#
+#   stars:
+#     name: '&eStar &aEffect'
+#     icon: NETHER_STAR
+#     lore:
+#       - '&7Seeing stars.'
+#     layers:
+#       - type: particle
+#         particle: FIREWORK
+#         count: 40
+#         offset: 0.5
+#         speed: 0.05
+#       - type: animation
+#         shape: RING
+#         particle: DUST
+#         color: '#FFD700'
+#         radius: 1.5
+#         duration: 40
+#       - type: sound
+#         sound: ENTITY_PLAYER_LEVELUP
+#         pitch: 1.5

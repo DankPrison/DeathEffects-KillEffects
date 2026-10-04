@@ -1,0 +1,17 @@
+# When @KIND@ effects play.
+triggers:
+  # The player killed another player.
+  players: true
+  # The player killed a mob.
+  mobs: false
+  # The player killed themselves, for example with their own arrow or TNT.
+  self: false
+  # Mobs that never play an effect when killed, for example [ARMOR_STAND, BAT].
+  ignored-mobs: [ARMOR_STAND]
+
+# Only matters when @OTHER_PLUGIN@ runs on the same server. When one player kills another, both the
+# victim's death effect and the killer's kill effect play.
+compatibility:
+  # true: the kill effect is skipped whenever the victim's death effect plays.
+  # If @OTHER_PLUGIN@ is set to skip its effect as well, the kill effect plays.
+  skip-when-death-effect-plays: false
