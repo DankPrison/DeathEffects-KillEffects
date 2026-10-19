@@ -5,6 +5,7 @@
 # @DESCRIPTION@
 # The effects are in effects.yml and all messages in messages.yml.
 # After changing a file, run /@ALIAS@ reload.
+# Help, updates and bug reports: https://github.com/DankPrison/DeathEffects-KillEffects
 #
 # Item and sound names in this file are written for the Minecraft version of your server and are
 # translated automatically when the server moves to another version.

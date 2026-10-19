@@ -4,6 +4,8 @@ import com.dank420girl.core.config.OptionReader;
 import com.dank420girl.core.config.Problems;
 import com.dank420girl.core.effect.EffectDefinition;
 import com.dank420girl.core.platform.Debug;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -28,6 +30,7 @@ public final class DeathTrigger extends Trigger {
         OptionReader triggers = OptionReader.of(OptionReader.section(config, "triggers", "triggers", problems), "triggers", problems);
         final boolean newKilledByPlayer = triggers.bool("killed-by-player", true);
         final boolean newOtherDeaths = triggers.bool("other-deaths", true);
+        final boolean newCancelled = triggers.bool("cancelled-deaths", true);
         triggers.reportUnused();
         OptionReader compatibility = OptionReader.of(OptionReader.section(config, "compatibility", "compatibility", problems),
                 "compatibility", problems);
@@ -38,24 +41,63 @@ public final class DeathTrigger extends Trigger {
             public void run() {
                 killedByPlayer = newKilledByPlayer;
                 otherDeaths = newOtherDeaths;
+                setPlayForCancelledDeaths(newCancelled);
                 skipWhenKillEffectPlays = newSkip;
             }
         };
     }
 
-    /** Runs last, so plugins that cancel deaths (Paper allows that) are respected. */
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    /** Notes where the player died before other plugins handle the death; some teleport the player at once. */
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onDeathStart(PlayerDeathEvent event) {
+        if (plugin.isStarted()) {
+            rememberDeathSpot(event.getEntity());
+        }
+    }
+
+    /**
+     * Runs after every other plugin has handled the death. Plugins can cancel deaths on Paper: duel and practice
+     * plugins do so to end a fight without the death screen, so cancelled deaths count as well, unless
+     * {@code triggers.cancelled-deaths} is false.
+     */
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onDeath(PlayerDeathEvent event) {
+        Player victim = event.getEntity();
+        Location spot = takeDeathSpot(victim);
         if (!plugin.isStarted()) {
             return;
         }
-        Player victim = event.getEntity();
-        Player killer = victim.getKiller();
-        String what = victim.getName() + " died";
-        EffectDefinition effect = effectFor(victim, killer);
+        handleDeath(victim, victim.getKiller(), spot, isCancelled(event), null);
+    }
+
+    @Override
+    void handleDeath(LivingEntity victimEntity, Player killer, Location spot, boolean cancelled, String source) {
+        if (!(victimEntity instanceof Player)) {
+            return;
+        }
+        Player victim = (Player) victimEntity;
+        String what = victim.getName() + " died" + from(source);
+        String refusal = triggerRefusal(victim, killer);
+        if (refusal != null) {
+            if (Debug.isEnabled()) {
+                Debug.log(plugin.getLogger(), what + ", no death effect: " + refusal);
+            }
+            return;
+        }
+        if (alreadyHandled(victim, source, cancelled)) {
+            Debug.log(plugin.getLogger(), what + ", no death effect: this death was already handled");
+            return;
+        }
+        if (cancelled && !playsForCancelledDeaths()) {
+            Debug.log(plugin.getLogger(), what + ", no death effect: another plugin cancelled the death "
+                    + "(triggers.cancelled-deaths is false)");
+            return;
+        }
+        Location location = placeOfDeath(victim, spot);
+        EffectDefinition effect = effectFor(victim, location.getWorld());
         if (effect == null) {
             if (Debug.isEnabled()) {
-                Debug.log(plugin.getLogger(), what + ", no death effect: " + whyNot(victim, killer));
+                Debug.log(plugin.getLogger(), what + ", no death effect: " + whyNoEffect(location.getWorld(), victim));
             }
             return;
         }
@@ -64,31 +106,29 @@ public final class DeathTrigger extends Trigger {
                     + " plays instead (compatibility.skip-when-kill-effect-plays)");
             return;
         }
-        play(effect, victim, killer, victim, what);
+        play(effect, victim, killer, victim, location, what, source, cancelled);
     }
 
-    private EffectDefinition effectFor(Player victim, Player killer) {
-        boolean byPlayer = killer != null && !killer.equals(victim);
-        if (byPlayer ? !killedByPlayer : !otherDeaths) {
-            return null;
-        }
-        if (!plugin.settings().isWorldEnabled(victim.getWorld())) {
-            return null;
-        }
-        return plugin.activeEffect(victim);
-    }
-
-    private String whyNot(Player victim, Player killer) {
+    /** Why the triggers settings rule out an effect for this death, or {@code null} if they allow it. */
+    private String triggerRefusal(Player victim, Player killer) {
         boolean byPlayer = killer != null && !killer.equals(victim);
         if (byPlayer ? !killedByPlayer : !otherDeaths) {
             return byPlayer ? "triggers.killed-by-player is false" : "triggers.other-deaths is false";
         }
-        return whyNoEffect(victim, victim);
+        return null;
+    }
+
+    /** The victim's effect, if it plays in the world where they died. */
+    private EffectDefinition effectFor(Player victim, World world) {
+        return worldEnabled(world) ? plugin.activeEffect(victim) : null;
     }
 
     @Override
     boolean wouldPlay(LivingEntity victim, Player killer) {
-        return victim instanceof Player && effectFor((Player) victim, killer) != null;
+        if (!(victim instanceof Player) || triggerRefusal((Player) victim, killer) != null) {
+            return false;
+        }
+        return effectFor((Player) victim, placeOfDeath(victim, peekDeathSpot(victim)).getWorld()) != null;
     }
 
     @Override

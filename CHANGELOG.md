@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.0.1
+
+### Fixed
+
+- No effect played for deaths that another plugin had cancelled. Duel and practice plugins such as StrikePractice cancel the death on Paper to end a fight without the death screen, so kills in their fights showed nothing, while the old versions did play an effect. These deaths play effects again. If a plugin cancels deaths to revive players and no effect should play then, set the new option `triggers.cancelled-deaths: false`.
+- Effects play where the player died, even when another plugin teleports the player away while handling the death. `enabled-worlds` and `disabled-worlds` go by that place as well.
+
+### New
+
+- StrikePractice: deaths in its fights are also taken from its own event, so they play effects however StrikePractice handles them. A death that is reported both ways plays one effect.
+- `settings.debug` says when it is switched on, and also explains deaths that play no kill effect because no player killed the victim or another plugin cancelled the death.
+- `plugin.yml` names the GitHub page as the plugins' website, and the release notes on GitHub come from this changelog.
+
 ## 2.0.0
 
 A rewrite of both plugins. Configurations and saved selections of the old versions (0.x) are converted automatically on first start.

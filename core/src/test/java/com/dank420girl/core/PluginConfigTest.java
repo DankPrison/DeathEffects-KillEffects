@@ -67,6 +67,35 @@ public class PluginConfigTest {
         }
     }
 
+    /** Deaths cancelled by other plugins (duel and practice plugins) play effects unless turned off. */
+    @Test
+    public void cancelledDeathsOption() throws Exception {
+        for (Variant variant : Variant.all()) {
+            TestServer server = TestServer.of("1.21.4");
+            File folder = temp.newFolder();
+            ConfigFiles files = server.files(folder, variant);
+            String text = files.render(ConfigFiles.CONFIG_TEMPLATE, true);
+            String option = "  cancelled-deaths: true\n";
+            assertTrue(variant + " config.yml has " + option.trim(), text.contains("triggers:\n") && text.contains(option));
+
+            assertTrue(variant + ": on by default", cancelledDeaths(variant, files, folder, text));
+            // A config.yml written by 2.0.0 does not have the option yet.
+            assertTrue(variant + ": on when missing", cancelledDeaths(variant, files, folder, text.replace(option, "")));
+            assertFalse(variant + ": can be turned off",
+                    cancelledDeaths(variant, files, folder, text.replace(option, "  cancelled-deaths: false\n")));
+        }
+    }
+
+    private static boolean cancelledDeaths(Variant variant, ConfigFiles files, File folder, String config) throws Exception {
+        ConfigFiles.write(new File(folder, "config.yml"), config);
+        ConfigFiles.Loaded loaded = files.load("config.yml", ConfigFiles.CONFIG_TEMPLATE, true, true);
+        Problems problems = new Problems("config.yml");
+        Trigger trigger = variant.createTrigger(null);
+        trigger.readSettings(loaded.config(), problems).run();
+        assertTrue(variant + ": " + problems.messages(), problems.isEmpty());
+        return trigger.playsForCancelledDeaths();
+    }
+
     @Test
     public void everyTokenIsFilledIn() throws Exception {
         Pattern leftover = Pattern.compile("@[A-Z_]+@|@INCLUDE");

@@ -1,6 +1,7 @@
 package com.dank420girl.core;
 
 import com.dank420girl.core.command.EffectsCommand;
+import com.dank420girl.core.compat.FightPlugins;
 import com.dank420girl.core.config.ConfigFiles;
 import com.dank420girl.core.config.LegacyMigration;
 import com.dank420girl.core.config.Problems;
@@ -188,6 +189,7 @@ public abstract class EffectsPlugin extends JavaPlugin {
         pm.registerEvents(new MenuListener(this, menu), this);
         pm.registerEvents(new FireworkListener(fireworks), this);
         pm.registerEvents(trigger, this);
+        new FightPlugins(this, trigger, scheduler).start();
 
         PluginCommand command = getCommand(variant.id());
         if (command != null) {
@@ -262,6 +264,9 @@ public abstract class EffectsPlugin extends JavaPlugin {
         engine.setMaxAnimations(newSettings.maxAnimations());
         applyTriggerSettings.run();
         Debug.setEnabled(newSettings.debug());
+        // So server owners can tell that the setting took effect before the first death.
+        Debug.log(getLogger(), "Debug messages are on: deaths show here, with the reason why an effect plays or not. "
+                + "Turn them off with settings.debug: false.");
         configFromDefaults = defaultConfig;
         settings = newSettings;
         messages = newMessages;

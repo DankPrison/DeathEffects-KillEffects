@@ -30,6 +30,8 @@ public final class PluginChecks {
         check(description.getMain().equals(mainClass), "main class");
         check(Class.forName(mainClass) != null, "main class exists");
         check(!description.getVersion().contains("$"), "version is filled in: " + description.getVersion());
+        check(description.getWebsite() != null && description.getWebsite().startsWith("https://"),
+                "website is filled in: " + description.getWebsite());
         Map<String, Map<String, Object>> commands = description.getCommands();
         check(commands.size() == 1 && commands.containsKey(variant.id()), "one command " + variant.id());
         Object aliases = commands.get(variant.id()).get("aliases");

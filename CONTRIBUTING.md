@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for helping out! Bug reports, ideas, new effects and pull requests are all welcome.
+Thanks for helping out! Bug reports, ideas, new effects and pull requests are all welcome: open an [issue](../../issues) or a [pull request](../../pulls).
 
 When you report a bug, please include the output of `/de version` (or `/ke version`), the console output from startup, and the files you changed (`config.yml`, `effects.yml`, `messages.yml`). Remove `storage.mysql.password` from `config.yml` first.
 
@@ -24,6 +24,7 @@ Both plugins are built from one core. `./gradlew build` compiles it once and bui
 | `core/.../Variant` | everything that differs between DeathEffects and KillEffects: names, alias, description, trigger |
 | `core/.../DeathTrigger`, `KillTrigger` | when each plugin's effects play, and its `triggers` and `compatibility` settings |
 | `core/.../command` | the `/de` and `/ke` command |
+| `core/.../compat` | other plugins: the other plugin of the pair (`OtherPlugin`) and the death events of fight plugins such as StrikePractice (`FightPlugins`) |
 | `core/.../config` | reading files, translating names in files (`ConfigFiles`, `YamlText`), converting files of old versions (`LegacyMigration`) |
 | `core/.../effect` | the effects engine: layers, particles (`particle/`), animation shapes (`shape/`), sounds, fireworks |
 | `core/.../menu` | the effect menu |
@@ -104,9 +105,9 @@ A new animation shape goes in `core/.../effect/shape/`: extend `ShapeDefinition`
 
 ## Releases
 
-1. Update `version` in `gradle.properties` and add the changes to `CHANGELOG.md`.
+1. Update `version` in `gradle.properties` and add the changes to `CHANGELOG.md` under a heading with the version, for example `## 2.0.1`.
 2. Commit, then tag the commit with the version, for example `v2.0.1`, and push the tag.
-3. GitHub Actions builds both plugins and publishes them in a release for that tag.
+3. GitHub Actions builds both plugins and publishes them in a release for that tag, with that version's part of `CHANGELOG.md` as the release notes. The release fails if the tag does not match `version` or the changelog has nothing for it; fix that, delete the tag (`git push --delete origin v2.0.1`, `git tag -d v2.0.1`) and tag again.
 
 ## Code style
 

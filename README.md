@@ -1,5 +1,7 @@
 # DeathEffects & KillEffects
 
+[![Build](https://github.com/DankPrison/DeathEffects-KillEffects/actions/workflows/build.yml/badge.svg)](https://github.com/DankPrison/DeathEffects-KillEffects/actions/workflows/build.yml)
+
 Two Minecraft server plugins that make deaths and kills look good:
 
 - **DeathEffects**: players pick an effect that plays where *they* die.
@@ -188,6 +190,18 @@ When one player kills another, both effects play by default: the victim's death 
 
 If both are enabled, the kill effect plays.
 
+## Duel and practice plugins
+
+Duel, practice and minigame plugins often end a fight without a real death: on Paper they cancel the death, so the player skips the death screen. Effects play for these deaths as well, where the player died, even if the plugin teleports the player away at once (`enabled-worlds` and `disabled-worlds` also go by that place). If a plugin on your server cancels deaths to revive players and no effect should play then, set `triggers.cancelled-deaths: false`.
+
+StrikePractice also reports the deaths in its fights through its own event. When StrikePractice is installed, both plugins use that event too, so deaths in its fights play effects however StrikePractice handles them. A death that is reported both ways plays one effect.
+
+If effects still don't play in fights, set `settings.debug: true`: deaths then show in the console with the reason why an effect played or not.
+
+## Bugs and ideas
+
+Report bugs and suggest effects or features in the [issues](../../issues). [CONTRIBUTING.md](CONTRIBUTING.md) says what to include in a bug report, and how to build and change the plugins.
+
 ## For developers
 
 Both plugins fire cancellable events:
@@ -222,6 +236,8 @@ Set<String> ids = deathEffects.getEffectIds();                          // all e
 You need a JDK from 17 to 24 to run the build (21 recommended; if your default JDK is newer, point `JAVA_HOME` to one of these). Then run:
 
 ```
+git clone https://github.com/DankPrison/DeathEffects-KillEffects.git
+cd DeathEffects-KillEffects
 ./gradlew build
 ```
 

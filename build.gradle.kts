@@ -92,6 +92,7 @@ configure(subprojects.filter { it.name in pluginVariants.keys }) {
             "singular" to variant.id.removeSuffix("s"),
             "kind" to variant.kind,
             "description" to variant.description,
+            "website" to project.property("website") as String,
         )
         inputs.properties(properties)
         from(coreProject.file("src/main/templates/plugin.yml")) {

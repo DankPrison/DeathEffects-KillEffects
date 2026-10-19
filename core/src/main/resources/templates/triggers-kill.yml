@@ -8,6 +8,10 @@ triggers:
   self: false
   # Mobs that never play an effect when killed, for example [ARMOR_STAND, BAT].
   ignored-mobs: [ARMOR_STAND]
+  # Deaths that another plugin cancelled. Duel and practice plugins do this to end a fight without the
+  # death screen. true: the effect plays anyway. false: no effect, for example if a plugin cancels deaths
+  # to revive players. StrikePractice also reports the deaths in its fights itself; those always count.
+  cancelled-deaths: true
 
 # Only matters when @OTHER_PLUGIN@ runs on the same server. When one player kills another, both the
 # victim's death effect and the killer's kill effect play.
